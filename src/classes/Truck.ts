@@ -6,7 +6,7 @@ import Wheel from './Wheel.js';
 import AbleToTow from '../interfaces/AbleToTow.js';
 
 // Truck class extends the Vehicle class and implements the AbleToTow interface
-class Truck extends Vehicle {
+class Truck extends Vehicle implements AbleToTow {
   // Declare properties of the Truck class
   vin: string;
   color: string;
@@ -58,7 +58,7 @@ class Truck extends Vehicle {
     if (vehicle.make && vehicle.model) {
       if (vehicle.weight <= this.towingCapacity) {
         console.log(
-          `The ${vehicle.make} ${vehicle.model} is behing towed.`
+          `The ${vehicle.make} ${vehicle.model} is being towed.`
         );
       } else {
         console.log(
