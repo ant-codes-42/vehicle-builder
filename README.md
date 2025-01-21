@@ -27,6 +27,8 @@ Required dependencies:
 
 ## Usage
 
+[Video walkthrough of application functions](https://youtu.be/ZvdxXxOVags)
+
 You will immediately be prompted to 'Create a new vehicle' or 'Select an existing vehicle'. There are three pre-configured options if you select the latter.
 
 If you select the first option, you will be asked to choose a type of vehicle, and then asked a series of prompts to input information related to your vehicle.
