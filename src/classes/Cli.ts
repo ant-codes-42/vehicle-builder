@@ -258,7 +258,7 @@ class Cli {
           parseInt(answers.year),
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
-          []
+          [new Wheel(answers.frontWheelDiameter, answers.frontWheelBrand), new Wheel(answers.rearWheelDiameter, answers.rearWheelBrand)]
         );
         // push the motorbike to the vehicles array
         this.vehicles.push(motorbike);
@@ -287,13 +287,13 @@ class Cli {
         },
       ])
       .then((answers) => {
-        if (answers.vin === truck.vin) {
+        if (answers.vehicleToTow.vin === truck.vin) {
           console.log(
             `The truck cannot tow itself!`
           );
           this.performActions();
         } else {
-          truck.tow(answers.value);
+          truck.tow(answers.vehicleToTow);
           this.performActions();
         }
         // TODO: check if the selected vehicle is the truck
@@ -393,6 +393,10 @@ class Cli {
                 // if vehicle is a truck, call findVehicleToTow method on vehicle as a truck
                 this.findVehicleToTow(this.vehicles[i] as Truck);
                 return;
+              } else {
+                console.log('Only trucks can tow vehicles!');
+                this.performActions();
+                return;
               }
             }
           }
@@ -401,8 +405,19 @@ class Cli {
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i].vin === this.selectedVehicleVin) {
               if (this.vehicles[i] instanceof Motorbike) {
-                // call wheelie method on vehicle as a motorbike
-                (this.vehicles[i] as Motorbike).wheelie();
+                if (this.vehicles[i].started && this.vehicles[i].currentSpeed > 0) {
+                  // call wheelie method on vehicle as a motorbike
+                  (this.vehicles[i] as Motorbike).wheelie();
+                  this.performActions();
+                  return;
+                } else {
+                  console.log('Motorbike must be started and moving to pop a wheelie!');
+                  this.performActions();
+                  return;
+                }
+              } else {
+                console.log('Only motorbikes can pop wheelies!');
+                this.performActions();
                 return;
               }
             }
